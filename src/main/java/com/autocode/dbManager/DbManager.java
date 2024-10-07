@@ -1,10 +1,6 @@
 
 package com.autocode.dbManager;
 
-
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.digest.DigestAlgorithm;
-import cn.hutool.crypto.digest.Digester;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONException;
 import com.alibaba.fastjson2.JSONObject;
@@ -18,6 +14,7 @@ import org.springframework.jdbc.support.lob.LobCreator;
 import org.springframework.jdbc.support.lob.LobHandler;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
+import org.springframework.util.DigestUtils;
 import org.springframework.util.FileCopyUtils;
 import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
@@ -468,8 +465,8 @@ public class DbManager implements Dao {
 
 	public String saveFile(byte[] bytes, String fileName, String fileType) {
 		//计算文件摘要
-		Digester md5 = new Digester(DigestAlgorithm.MD5);
-		String digester = md5.digestHex(bytes);
+		String digester = DigestUtils.md5DigestAsHex(bytes);
+
 
 		//文件存储
 		String storageId;
@@ -518,8 +515,7 @@ public class DbManager implements Dao {
 		String oldStorageId = jdbcTemplate.queryForObject("select storage_id from db_file where id=?", String.class, fileId);
 		JSONObject fj = new JSONObject();
 
-		Digester md5 = new Digester(DigestAlgorithm.MD5);
-		String digester = md5.digestHex(bytes);
+		String digester = DigestUtils.md5DigestAsHex(bytes);
 
 		//存储文件
 		String storageId = null;
@@ -557,7 +553,7 @@ public class DbManager implements Dao {
 		BigDecimal fileSize = primitiveSize.divide(divisor, 2, RoundingMode.HALF_UP);
 		int updateNum = jdbcTemplate.update("update db_file set upload_time=?,file_name=?,file_type=?,file_size=?,storage_id=? where id=?",new Date(),fileName,fileType,fileSize,storageId,fileId);
 
-		if(StrUtil.isNotBlank(oldStorageId)){
+		if(oldStorageId!=null && !oldStorageId.isBlank()){
 			int num = jdbcTemplate.queryForObject("select count(*) from db_file where storage_id=?", Integer.class, oldStorageId);
 			if(num==0){
 				jdbcTemplate.update("delete from db_file_storage where file_image_id=?",oldStorageId);
@@ -576,11 +572,10 @@ public class DbManager implements Dao {
 
 	@Override
 	public int delFile(String fileId) {
-		//String storageId = dao.queryValue("select storage_id from db_file where id=?", String.class, fileId);
 		String storageId = jdbcTemplate.queryForObject("select storage_id from db_file where id=?",String.class,fileId);
 		int delNum = jdbcTemplate.update("delete from db_file where id=?", fileId);
 
-		if(StrUtil.isNotBlank(storageId)){
+		if(storageId!=null && !storageId.isBlank()){
 			int num = jdbcTemplate.queryForObject("select count(*) from db_file where storage_id=?", Integer.class, storageId);
 			if(num==0){
 				jdbcTemplate.update("delete from db_file_storage where file_image_id=?",storageId);
