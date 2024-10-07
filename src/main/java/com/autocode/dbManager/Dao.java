@@ -172,10 +172,13 @@ public interface Dao {
 
 
 	/**
-	 * 保存文件，将文件保存到数据库对应的表中，与LIMS功能想匹配
+	 * 将文件保存到db_file表中
+	 * 1、db_file中只存储文件信息，实际存储表为db_file_storage
+	 * 2、根据文件的MD5摘要，在db_file_storage表中做了去重处理
 	 * @param bytes 文件信息
 	 * @param fileName 文件名称
-	 * @return 文件ID
+	 * @param fileType 文件类型
+	 * @return db_file的id值
 	 */
 	String saveFile(byte[] bytes, String fileName, String fileType);
 
@@ -185,7 +188,7 @@ public interface Dao {
 	 * @param fileName 文件名称
 	 * @param fileType 文件类型
 	 * @param fileId 文件id
-	 * @return
+	 * @return 1：代表成功，0：代表失败
 	 */
 	int updateFile(byte[] bytes,String fileName, String fileType,String fileId);
 

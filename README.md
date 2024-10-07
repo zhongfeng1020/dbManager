@@ -3,35 +3,26 @@
 #### 介绍
 dbManager为通过JSON对象对数据库进行操作的工具类，开发过程中不需要再进行Bean对象的定义，由蓝格科技（<https://docs.autocode.net.cn/>）提供技术支持
 
-#### 软件架构
-软件架构说明
+
+#### 🍊Maven
+在项目的pom.xml的dependencies中加入以下内容:
+```xml
+<dependency>
+    <groupId>cn.net.autocode</groupId>
+    <artifactId>dbManager</artifactId>
+    <version>3.0.0</version>
+</dependency>
+```
+
+#### 技术支持
+使用中如有问题，请添加微信(13335136362)
+
+<img src="\img.png" width="280px" height="auto">
+
+#### API文档
+正在完善
+
+#### 使用教程
+正在完善
 
 
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
