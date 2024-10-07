@@ -13,7 +13,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 
 /**
  * 
- * @Description: 
+ * &#064;Description:  将数据库的查询结果转化为JSON对象
  * @author 陈忠峰
  * @version 1.00.00
  * 

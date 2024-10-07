@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package com.autocode.dbManager.handler;
 
 /**

@@ -9,10 +9,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 /**
  * 
- * @Description: 
+ * &#064;Description:  将包含value、text列的查询结果集转化为Map对象，value为对应Map的key值，text对应Map的value值
  * @author 陈忠峰
  * @version 1.00.00
- * @history:
  *
  */
 public class KeyValueHandler{

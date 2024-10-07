@@ -13,10 +13,9 @@ import org.springframework.jdbc.support.rowset.SqlRowSetMetaData;
 
 /**
  * 
- * @Description: 
+ * &#064;Description:  将数据库查询结构转化为bean对象
  * @author 陈忠峰
  * @version 1.00.00
- * @history:
  *
  */
 public class BeanHandler{
@@ -64,7 +63,7 @@ public class BeanHandler{
 		 */
 		int[] columnToProperty = BeanProcessor.mapColumnsToProperties(rsmd, props);
 		
-		List<T> list = new ArrayList<T>();
+		List<T> list = new ArrayList<>();
 		while(rs.next()){
 			T bean = BeanProcessor.createBean(rs, clazz, props, columnToProperty);
 			list.add(bean);
@@ -75,9 +74,9 @@ public class BeanHandler{
 	
 	/**
 	 * 获取insert sql语句
-	 * @param columns
-	 * @param tableName
-	 * @return
+	 * @param columns 数据库表列集合
+	 * @param tableName 数据表表名
+	 * @return insert sql语句
 	 */
 	public static String insertSql(Object[] columns,String tableName) {
 		int cols =  columns.length;
@@ -104,9 +103,9 @@ public class BeanHandler{
 	
 	/**
 	 * 获取updateSql语句
-	 * @param columns
-	 * @param tableName
-	 * @return
+	 * @param columns 数据库表列集合
+	 * @param tableName 数据库表表名
+	 * @return update sql语句
 	 */
 	public static String updateSql(Object[] columns,String tableName,List<String> primaryKey) {
 		int cols =  columns.length;

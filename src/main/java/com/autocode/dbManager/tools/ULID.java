@@ -1,9 +1,11 @@
-
 package com.autocode.dbManager.tools;
 
 import java.util.Random;
 
 
+/**
+ * 生成ULID主键的工具类
+ */
 public class ULID {
   /**
    * ULID string length.
@@ -125,7 +127,6 @@ public class ULID {
 
   /**
    * Generate random ULID binary using {@link Random} instance.
-   *
    * @return ULID binary
    */
   public static byte[] randomBinary() {
