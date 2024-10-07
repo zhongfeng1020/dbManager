@@ -1,7 +1,7 @@
 # dbManager
 
 #### 介绍
-dbManager为通过JSON对象对数据库进行操作的工具类，开发过程中不需要再进行Bean对象的定义，由蓝格科技（https://docs.autocode.net.cn/）提供技术支持
+dbManager为通过JSON对象对数据库进行操作的工具类，开发过程中不需要再进行Bean对象的定义，由蓝格科技（<https://docs.autocode.net.cn/>）提供技术支持
 
 #### 软件架构
 软件架构说明
