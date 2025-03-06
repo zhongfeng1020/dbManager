@@ -11,7 +11,7 @@
 
 	<groupId>cn.net.autocode</groupId>
 	<artifactId>dbManager</artifactId>
-	<version>3.5.0</version>
+	<version>3.5.1</version>
 	<packaging>jar</packaging>
 	<name>dbManager</name>
 	<description>dbManager为通过JSON对象对数据库进行操作的工具类，开发过程中不需要再进行Bean对象的定义，由AutoCode智能开发平台(https://docs.autocode.net.cn/)提供技术支持</description>
