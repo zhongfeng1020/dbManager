@@ -1,5 +1,5 @@
 
-package com.autocode.dbManager.tools;
+package cn.net.autocode.dbManager.tools;
 
 import java.util.ArrayList;
 import java.util.List;

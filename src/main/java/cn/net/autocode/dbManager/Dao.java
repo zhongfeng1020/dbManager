@@ -1,7 +1,7 @@
 /**
  * 执行数据库操作
  */
-package com.autocode.dbManager;
+package cn.net.autocode.dbManager;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;

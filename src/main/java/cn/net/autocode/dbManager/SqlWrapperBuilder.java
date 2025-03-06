@@ -1,4 +1,4 @@
-package com.autocode.dbManager;
+package cn.net.autocode.dbManager;
 
 import com.alibaba.fastjson2.JSONArray;
 import org.springframework.lang.Nullable;
@@ -158,7 +158,7 @@ public class SqlWrapperBuilder {
 	
 	public SqlWrapperBuilder in(String column,List<?> value) {
 
-		if(value!=null) {
+		if(value!=null && !value.isEmpty()) {
 			this.where = this.where + " and "+column+" in (?) ";
 			params.add(value);
 		}
@@ -166,9 +166,9 @@ public class SqlWrapperBuilder {
 	}
 	
 	public SqlWrapperBuilder notIn(String column,List<?> value) {
-		if(value!=null) {
+		if(value!=null && !value.isEmpty()) {
 			this.where = this.where + " and "+column+" not in (?) ";
-			params.add(Arrays.asList(value));
+			params.add(value);
 		}
 		return this;
 	}

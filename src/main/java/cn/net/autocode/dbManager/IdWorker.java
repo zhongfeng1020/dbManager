@@ -1,6 +1,6 @@
-package com.autocode.dbManager;
+package cn.net.autocode.dbManager;
 
-import com.autocode.dbManager.tools.ULID;
+import cn.net.autocode.dbManager.tools.ULID;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

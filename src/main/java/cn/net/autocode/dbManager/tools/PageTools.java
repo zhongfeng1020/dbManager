@@ -1,4 +1,4 @@
-package com.autocode.dbManager.tools;
+package cn.net.autocode.dbManager.tools;
 
 import com.alibaba.fastjson2.JSONObject;
 

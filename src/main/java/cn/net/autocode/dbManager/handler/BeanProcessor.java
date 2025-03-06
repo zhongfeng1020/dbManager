@@ -1,4 +1,4 @@
-package com.autocode.dbManager.handler;
+package cn.net.autocode.dbManager.handler;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;

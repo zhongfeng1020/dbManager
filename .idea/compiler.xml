@@ -11,10 +11,13 @@
         <module name="dbManager" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="17" />
+    <bytecodeTargetLevel target="17">
+      <module name="autocode-dbmanager" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="autocode-dbmanager" options="-parameters" />
       <module name="dbManager" options="-parameters" />
     </option>
   </component>

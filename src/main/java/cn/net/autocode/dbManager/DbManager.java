@@ -1,11 +1,11 @@
 
-package com.autocode.dbManager;
+package cn.net.autocode.dbManager;
 
+import cn.net.autocode.dbManager.handler.*;
+import cn.net.autocode.dbManager.tools.PageTools;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONException;
 import com.alibaba.fastjson2.JSONObject;
-import com.autocode.dbManager.handler.*;
-import com.autocode.dbManager.tools.PageTools;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.AbstractLobCreatingPreparedStatementCallback;
@@ -332,6 +332,9 @@ public class DbManager implements Dao {
 
 	@Override
 	public int[] createJSONArray(JSONArray jsonArray, String tableName) {
+		if (jsonArray==null || jsonArray.isEmpty()){
+			return new int[]{};
+		}
 		// 1、获取表名及列名
 		String[] columns = this.obtainColumns(tableName);
 
@@ -470,11 +473,11 @@ public class DbManager implements Dao {
 
 		//文件存储
 		String storageId;
-		List<String> storageIds = jdbcTemplate.queryForList("select file_image_id from db_file_storage where file_type=? and digester=?", String.class,fileType,digester);
+		List<String> storageIds = jdbcTemplate.queryForList("select file_image_id from autocode_file_storage where file_type=? and digester=?", String.class,fileType,digester);
 		if(!storageIds.isEmpty()){
 			storageId =storageIds.get(0);
 		}else{
-			String sql = "insert into db_file_storage(FILE_IMAGE_ID,FILE_NAME,digester,file_type,FILE_IMAGE) values(?,?,?,?,?) ";
+			String sql = "insert into autocode_file_storage(FILE_IMAGE_ID,FILE_NAME,digester,file_type,FILE_IMAGE) values(?,?,?,?,?) ";
 			final LobHandler lobHandler = new DefaultLobHandler();
 			final Map<String, String> imageId = new HashMap<>();
 			jdbcTemplate.execute(sql, new AbstractLobCreatingPreparedStatementCallback(lobHandler) {
@@ -506,24 +509,24 @@ public class DbManager implements Dao {
 		BigDecimal divisor = new BigDecimal(1024);
 		BigDecimal fileSize = primitiveSize.divide(divisor, 2, RoundingMode.HALF_UP);
 
-		jdbcTemplate.update("insert into db_file(id,file_name,file_type,upload_time,create_time,storage_id,file_size) values(?,?,?,?,?,?)", fileId,fileName,fileType,curDate,curDate,storageId,fileSize);
+		jdbcTemplate.update("insert into autocode_file(id,file_name,file_type,upload_time,create_time,storage_id,file_size) values(?,?,?,?,?,?,?)", fileId,fileName,fileType,curDate,curDate,storageId,fileSize);
 		return fileId;
 	}
 
 	@Override
 	public int updateFile(byte[] bytes, String fileName, String fileType, String fileId) {
-		String oldStorageId = jdbcTemplate.queryForObject("select storage_id from db_file where id=?", String.class, fileId);
+		String oldStorageId = jdbcTemplate.queryForObject("select storage_id from autocode_file where id=?", String.class, fileId);
 		JSONObject fj = new JSONObject();
 
 		String digester = DigestUtils.md5DigestAsHex(bytes);
 
 		//存储文件
 		String storageId = null;
-		List<String> storageIds = jdbcTemplate.queryForList("select file_image_id from db_file_storage where file_type=? and digester=?", String.class,fileType,digester);
+		List<String> storageIds = jdbcTemplate.queryForList("select file_image_id from autocode_file_storage where file_type=? and digester=?", String.class,fileType,digester);
 		if(!storageIds.isEmpty()){
 			storageId = storageIds.get(0);
 		}else{
-			String sql = "insert into db_file_storage(FILE_IMAGE_ID,FILE_NAME,digester,file_type,FILE_IMAGE) values(?,?,?,?,?) ";
+			String sql = "insert into autocode_file_storage(FILE_IMAGE_ID,FILE_NAME,digester,file_type,FILE_IMAGE) values(?,?,?,?,?) ";
 			final LobHandler lobHandler = new DefaultLobHandler();
 			final Map<String, String> imageId = new HashMap<>();
 			jdbcTemplate.execute(sql, new AbstractLobCreatingPreparedStatementCallback(lobHandler) {
@@ -551,12 +554,12 @@ public class DbManager implements Dao {
 		BigDecimal primitiveSize = new BigDecimal(bytes.length);
 		BigDecimal divisor = new BigDecimal(1024);
 		BigDecimal fileSize = primitiveSize.divide(divisor, 2, RoundingMode.HALF_UP);
-		int updateNum = jdbcTemplate.update("update db_file set upload_time=?,file_name=?,file_type=?,file_size=?,storage_id=? where id=?",new Date(),fileName,fileType,fileSize,storageId,fileId);
+		int updateNum = jdbcTemplate.update("update autocode_file set upload_time=?,file_name=?,file_type=?,file_size=?,storage_id=? where id=?",new Date(),fileName,fileType,fileSize,storageId,fileId);
 
 		if(oldStorageId!=null && !oldStorageId.isBlank()){
-			int num = jdbcTemplate.queryForObject("select count(*) from db_file where storage_id=?", Integer.class, oldStorageId);
+			int num = jdbcTemplate.queryForObject("select count(*) from autocode_file where storage_id=?", Integer.class, oldStorageId);
 			if(num==0){
-				jdbcTemplate.update("delete from db_file_storage where file_image_id=?",oldStorageId);
+				jdbcTemplate.update("delete from autocode_file_storage where file_image_id=?",oldStorageId);
 			}
 		}
 		return updateNum;
@@ -565,20 +568,20 @@ public class DbManager implements Dao {
 
 	public byte[] readFile(String fileId) {
 		// TODO Auto-generated method stub
-		String storageId = jdbcTemplate.queryForObject("select storage_id from db_file where id=?", String.class,fileId);
-		String sql = "select FILE_IMAGE from db_file_storage where FILE_IMAGE_ID = ? ";
+		String storageId = jdbcTemplate.queryForObject("select storage_id from autocode_file where id=?", String.class,fileId);
+		String sql = "select FILE_IMAGE from autocode_file_storage where FILE_IMAGE_ID = ? ";
 		return this.readBlob(sql,storageId);
 	}
 
 	@Override
 	public int delFile(String fileId) {
-		String storageId = jdbcTemplate.queryForObject("select storage_id from db_file where id=?",String.class,fileId);
-		int delNum = jdbcTemplate.update("delete from db_file where id=?", fileId);
+		String storageId = jdbcTemplate.queryForObject("select storage_id from autocode_file where id=?",String.class,fileId);
+		int delNum = jdbcTemplate.update("delete from autocode_file where id=?", fileId);
 
 		if(storageId!=null && !storageId.isBlank()){
-			int num = jdbcTemplate.queryForObject("select count(*) from db_file where storage_id=?", Integer.class, storageId);
+			int num = jdbcTemplate.queryForObject("select count(*) from autocode_file where storage_id=?", Integer.class, storageId);
 			if(num==0){
-				jdbcTemplate.update("delete from db_file_storage where file_image_id=?",storageId);
+				jdbcTemplate.update("delete from autocode_file_storage where file_image_id=?",storageId);
 			}
 		}
 

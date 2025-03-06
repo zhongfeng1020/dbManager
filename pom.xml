@@ -5,17 +5,17 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.1</version>
+		<version>3.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<groupId>cn.net.autocode</groupId>
 	<artifactId>dbManager</artifactId>
-	<version>3.0.0</version>
+	<version>3.5.0</version>
 	<packaging>jar</packaging>
 	<name>dbManager</name>
-	<description>dbManager为通过JSON对象对数据库进行操作的工具类，开发过程中不需要再进行Bean对象的定义，由蓝格科技(https://docs.autocode.net.cn/)提供技术支持</description>
-	<url>https://gitee.com/zhongfeng1020/db-manager</url>
+	<description>dbManager为通过JSON对象对数据库进行操作的工具类，开发过程中不需要再进行Bean对象的定义，由AutoCode智能开发平台(https://docs.autocode.net.cn/)提供技术支持</description>
+	<url>https://gitee.com/langekj/db-manager</url>
 
 	<licenses>
 		<license>
@@ -27,16 +27,16 @@
 	<developers>
 		<developer>
 			<name>chenzhongfeng</name>
-			<email>13335136362.com</email>
+			<email>zhongfeng1020@163.com</email>
 			<organization>AutoCode</organization>
 			<organizationUrl>https://docs.autocode.net.cn/</organizationUrl>
 		</developer>
 	</developers>
 
 	<scm>
-		<connection>scm:git:https://gitee.com/zhongfeng1020/db-manager.git</connection>
-		<developerConnection>scm:git:https://gitee.com/zhongfeng1020/db-manager.git</developerConnection>
-		<url>https://gitee.com/zhongfeng1020/db-manager.git</url>
+		<connection>scm:git:https://gitee.com/langekj/db-manager.git</connection>
+		<developerConnection>scm:git:https://gitee.com/langekj/db-manager.git</developerConnection>
+		<url>https://gitee.com/langekj/db-manager.git</url>
 	</scm>
 
 	<properties>
@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>com.alibaba.fastjson2</groupId>
 			<artifactId>fastjson2</artifactId>
-			<version>2.0.53</version>
+			<version>2.0.56</version>
 			<scope>provided</scope>
 		</dependency>
 

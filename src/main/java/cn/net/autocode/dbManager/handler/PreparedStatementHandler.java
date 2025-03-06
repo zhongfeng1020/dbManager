@@ -1,5 +1,5 @@
 
-package com.autocode.dbManager.handler;
+package cn.net.autocode.dbManager.handler;
 
 /**
  * @author 陈忠峰
