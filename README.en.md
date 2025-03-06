@@ -10,7 +10,7 @@ dbManager为通过JSON对象对数据库进行操作的工具类，开发过程�
 <dependency>
     <groupId>cn.net.autocode</groupId>
     <artifactId>dbManager</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
 </dependency>
 ```
 
